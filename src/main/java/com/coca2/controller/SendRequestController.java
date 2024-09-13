@@ -1,5 +1,6 @@
 package com.coca2.controller;
 
+import com.coca2.payload.Person;
 import com.coca2.producer.Producer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,4 +25,19 @@ public class SendRequestController {
            return ResponseEntity.internalServerError().body("Something went wrong, message not sent.");
         }
     }
+
+
+    @PostMapping("sendRequest/p")
+    public ResponseEntity<String> sendRequestP(
+            @RequestBody Person person
+    ){
+        try {
+            producer.sendPersonJson(person);
+            return ResponseEntity.ok("Person sent Successfully");
+
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body("Something went wrong, Person not sent.");
+        }
+    }
+
 }
